@@ -1,0 +1,46 @@
+{
+  "builder_name": "json",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "json",
+  "dataset_size": 21893,
+  "description": "",
+  "download_checksums": {
+    "/data/home/leesinchen/human_help/data_creation/data_solver/all_solver.jsonl": {
+      "num_bytes": 22252,
+      "checksum": null
+    }
+  },
+  "download_size": 22252,
+  "features": {
+    "trajectory": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "em": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "f1": {
+      "dtype": "float64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 44145,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 21893,
+      "num_examples": 10,
+      "dataset_name": "json"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
