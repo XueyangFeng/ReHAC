@@ -37,7 +37,7 @@ class DataArguments:
         default="./data/data_solver_hf", metadata={"help": "Path to train data"}
     )
 
-    trajectory_max_len: int = field(
+    max_trajectory_length: int = field(
         default=512,
         metadata={
             "help": "The maximum total input trajectory length after tokenization. trajectorys longer "
@@ -71,6 +71,7 @@ class ReinforceTrainingArguments(TrainingArguments):
     gamma: float = field(default=1.0, metadata={"help": "return decay rate"})
     delta: float = field(default=0, metadata={"help": "human decay value  real_return = return - delta * human_times"})
     logging_steps: int = field(default=20)
-    per_device_train_batch_size: int = field(default=16)
-    output_dir: str = field(default="fine-tuned_dir")
+    
+    # per_device_train_batch_size: int = field(default=16)  # already exists in trainingarguments
+    # output_dir: str = field(default="fine-tuned_dir")
 
