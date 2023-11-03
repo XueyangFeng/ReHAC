@@ -2,27 +2,11 @@ import dataclasses
 from typing import Dict
 from transformers.trainer import *
 from transformers import Trainer, AutoModelForCausalLM
-from trl.import_utils import is_peft_available
-from trl.trainer.utils import PeftSavingCallback
+from transformers.utils import is_peft_available
+# from trl.trainer.utils import PeftSavingCallback
 
 if is_peft_available():
     from peft import PeftConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
-
-
-def print_trainable_parameters(model):
-    """
-    print the number of trainable parameters in the model.
-    """
-    trainable_params = 0
-    all_param = 0
-    for _,param in model.named_parameters():
-        all_param += param.numel()
-        if param.requires_grad:
-            trainable_params += param.numel()
-    print(
-        f"trainable params: {trainable_params} || all params: {all_param} || trainable%: {100 * trainable_params / all_param}"
-    )
-
 
 class PolicyTrainer(Trainer):
     r"""
@@ -70,10 +54,10 @@ class PolicyTrainer(Trainer):
 
                     args = dataclasses.replace(args, gradient_checkpointing=False)
 
-                model = get_peft_model(model, peft_config)
-            print_trainable_parameters(model=model)
-            if callbacks is None:
-                callbacks = [PeftSavingCallback]
+                model = get_peft_model(model, peft_config)  # model: PeftModel Class
+            model.print_trainable_parameters()
+            # if callbacks is None:  # 看来这个不需要
+            #     callbacks = [PeftSavingCallback]
 
         super().__init__(
             model=model,
@@ -86,24 +70,23 @@ class PolicyTrainer(Trainer):
         )
 
     
-    
-    def _save(self, output_dir: Optional[str] = None):
-        output_dir = output_dir if output_dir is not None else self.args.output_dir
-        os.makedirs(output_dir, exist_ok=True)
-        logger.info("Saving model checkpoint to %s", output_dir)
-        # Save a trained model and configuration using `save_pretrained()`.
-        # They can then be reloaded using `from_pretrained()`
-        if not hasattr(self.model, 'save'):
-            raise NotImplementedError(
-                f'MODEL {self.model.__class__.__name__} '
-                f'does not support save interface')
-        else:
-            self.model.save(output_dir)
-        if self.tokenizer is not None and self.is_world_process_zero():
-            self.tokenizer.save_pretrained(output_dir)
+    # TODO(jax) 继承的trainer有_save模块
+    # def _save(self, output_dir: Optional[str] = None):
+    #     output_dir = output_dir if output_dir is not None else self.args.output_dir
+    #     os.makedirs(output_dir, exist_ok=True)
+    #     logger.info("Saving model checkpoint to %s", output_dir)
+    #     # Save a trained model and configuration using `save_pretrained()`.
+    #     # They can then be reloaded using `from_pretrained()`
+    #     if not hasattr(self.model, 'save'):
+    #         raise NotImplementedError(
+    #             f'MODEL {self.model.__class__.__name__} '
+    #             f'does not support save interface')
+    #     else:
+    #         self.model.save(output_dir)
+    #     if self.tokenizer is not None and self.is_world_process_zero():
+    #         self.tokenizer.save_pretrained(output_dir)
 
-        torch.save(self.args, os.path.join(output_dir, "training_args.bin"))
-
+    #     torch.save(self.args, os.path.join(output_dir, "training_args.bin"))
 
 
     def compute_loss(self, model, inputs, return_outputs=False):
