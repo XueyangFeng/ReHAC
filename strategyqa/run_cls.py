@@ -70,7 +70,6 @@ def main():
     config = LlamaConfig.from_pretrained(
         pretrained_model_name_or_path=model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
-        # num_hidden_layers=2  # TODO(jax)  remove it ! for test only !!
     )
     config.pad_token_id = 0
 
@@ -88,19 +87,18 @@ def main():
         config=config,
         alpha=alpha_value,
         torch_dtype=torch.bfloat16,
-        # load_in_4bit=True,
     )
 
     lora_config = LoraConfig(
         r=lora_args.lora_r,
-        target_modules=lora_args.lora_target_modules,  # llama default ["q_proj", "v_proj"]
+        target_modules=lora_args.lora_target_modules, 
         lora_alpha=lora_args.lora_alpha,
         lora_dropout=lora_args.lora_dropout,
         bias="none",
-        modules_to_save=["policy_head"],  # auto unfreeze policy_head
-        task_type="CAUSAL_LM",  # TOKEN_CLS
+        modules_to_save=["policy_head"],  
+        task_type="CAUSAL_LM",  
     )
-    # model.resize_token_embeddings(len(tokenizer))
+
     
     trainer = PolicyTrainer(
         model=model,
@@ -114,40 +112,20 @@ def main():
             max_source_length=data_args.max_trajectory_length,
         ),
         peft_config=lora_config,
-        callbacks=[testingCallback]  # TODO(jax)
+        callbacks=[testingCallback]  
     )
 
     # Training
     if training_args.do_train:
         train_result = trainer.train()
 
-        #trainer.model.save_pretrained("fine-tuned_dir/", modules_to_save="policy_head")
-
-        trainer.save_model()  # TODO(jax) check peft saving
+        trainer.save_model() 
         
         metrics = train_result.metrics
         metrics["train_samples"] = train_dataset.num_rows
         trainer.log_metrics("train", metrics)
         trainer.save_metrics("train", metrics)
         trainer.save_state()
-
-        # print(type(trainer.model))  # TODO(jax)
-        # trainer.model.save_pretrained("fine-tuned_dir/", modules_to_save="policy_head")
-
-    #test
-    # test_input = "caculate 1+1\n<solver>"
-    # # The inputs should be "Your trajectory\n<solver>"
-    # model.eval()
-    # test_input = tokenizer(test_input, return_tensors="pt").to(model.device)  # no padding
-    # with torch.no_grad():
-    #     print(model.inference(test_input['input_ids']))
-
-
-    #TODO(xueyang) resume checkpoint, save final model after merging base_model and lora
-    """
-    if args.merge_lora:
-        merge_llm_with_lora(args.base_model, final_model_path, args.output_dir)
-    """
 
 if __name__ == "__main__":
     main()

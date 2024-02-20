@@ -38,18 +38,11 @@ class LlamaforPolicyModel(LlamaPreTrainedModel):
         self.post_init()
         self.alpha = alpha
         print(self.alpha)
-        self.policy_head.weight.data.normal_(mean=0.0, std=0.02)  # TODO(jax) init policy head weights
-
     @classmethod
     def from_pretrained(cls, pretrained_model_name_or_path, *model_args, alpha=None, **kwargs):
-        # 确保alpha参数被正确处理
         if alpha is None:
             raise ValueError("Alpha value must be provided for LlamaforPolicyModel")
-
-        # 在调用父类 from_pretrained 之前，添加 alpha 到 kwargs
         kwargs['alpha'] = alpha
-
-        # 调用父类的 from_pretrained 方法
         model = super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
 
         return model
@@ -112,12 +105,8 @@ class LlamaforPolicyModel(LlamaPreTrainedModel):
             else:
                 sequence_lengths = -1
 
-        #从logits中按照每个batch中的序列长度获取最后一个有效输出，如果序列经过了padding（填充），那么将获取到每个序列的最后一个非padding词汇的输出。
         pooled_logits = logits[torch.arange(batch_size, device=logits.device), sequence_lengths]
         
-        # reward_returns_shape = reward_returns.size()
-        # bias = torch.ones(reward_returns_shape)
-        # bias = bias.to(reward_returns.device)
         behaviour_policy_prob =0.5
 
         loss = None
@@ -141,19 +130,8 @@ class LlamaforPolicyModel(LlamaPreTrainedModel):
             loss = -distribution.log_prob(labels)*(reward_returns)*weight - alpha*entropy
         
 
-            # PPO的目标是最小化这两个目标中较大的一个的负数
-
-            #print(counts)
-            #print(important_sampling_ratio)
-            #TODO gradient ascend 貌似不用mask,loss越来越小，
-            #surrogate1 = distribution.log_prob(labels)*(reward_returns)*important_sampling_ratio*counts - alpha*entropy
-            #surrogate2 = distribution.log_prob(labels)*(reward_returns)*torch.clamp(important_sampling_ratio*counts, 1 - clip_threshold, 1 + clip_threshold) - alpha*entropy
-            #print(loss)
-            #loss = -surrogate2.mean()  # 可能需要对损失求均值
-            #c
-
             
-            loss = torch.sum(loss)  # TODO(jax)
+            loss = torch.sum(loss) 
 
         if not return_dict:
             output = (logits,) + outputs[1:]
@@ -194,7 +172,6 @@ class LlamaforPolicyModel(LlamaPreTrainedModel):
                 sequence_lengths = -1
 
 
-        #从logits中按照每个batch中的序列长度获取最后一个有效输出，如果序列经过了padding（填充），那么将获取到每个序列的最后一个非padding词汇的输出。
         pooled_logits = logits[torch.arange(batch_size, device=logits.device), sequence_lengths]
  
         
