@@ -8,6 +8,22 @@ This repository is based on our paper: "Human-Computer Collaboration for Solving
 - Task
   - dataset collected in `data_produce/`
   - train data in `data/`
-  - start training by `script/run.sh`
+  - start training by `scripts/run.sh`
   - local test environment is in `test_data/`
 - Human-Agent Collaboration Dataset in `dataset/`
+
+## Usage
+### Prepare
+You can use following scripts to install related python package through pip:
+```
+git clone https://github.com/XueyangFeng/ReHAC.git
+cd ReHAC
+pip install -r requirements.txt
+```
+### Training and Test
+```
+cd hotpotqa/scripts
+sh run.sh
+```
+We will automatically test this in training through a local simulation environment with callback functions.
+
