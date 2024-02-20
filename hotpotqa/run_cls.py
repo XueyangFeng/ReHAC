@@ -1,6 +1,5 @@
 import logging
 import os
-# os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # TODO(jax) write in bash document
 from pathlib import Path
 from peft import LoraConfig
 from transformers import AutoTokenizer
@@ -121,10 +120,7 @@ def main():
     # Training
     if training_args.do_train:
         train_result = trainer.train()
-
-        #trainer.model.save_pretrained("fine-tuned_dir/", modules_to_save="policy_head")
-
-        trainer.save_model()  # TODO(jax) check peft saving
+        trainer.save_model()  
         
         metrics = train_result.metrics
         metrics["train_samples"] = train_dataset.num_rows
@@ -132,23 +128,6 @@ def main():
         trainer.save_metrics("train", metrics)
         trainer.save_state()
 
-        # print(type(trainer.model))  # TODO(jax)
-        # trainer.model.save_pretrained("fine-tuned_dir/", modules_to_save="policy_head")
-
-    #test
-    # test_input = "caculate 1+1\n<solver>"
-    # # The inputs should be "Your trajectory\n<solver>"
-    # model.eval()
-    # test_input = tokenizer(test_input, return_tensors="pt").to(model.device)  # no padding
-    # with torch.no_grad():
-    #     print(model.inference(test_input['input_ids']))
-
-
-    #TODO(xueyang) resume checkpoint, save final model after merging base_model and lora
-    """
-    if args.merge_lora:
-        merge_llm_with_lora(args.base_model, final_model_path, args.output_dir)
-    """
 
 if __name__ == "__main__":
     main()

@@ -33,24 +33,15 @@ class LlamaforPolicyModel(LlamaPreTrainedModel):
         self.model = LlamaModel(config)
         self.action_space_size = 2
         self.policy_head = nn.Linear(config.hidden_size, self.action_space_size, bias=True)
-
-        # Initialize weights and apply final processing
         self.post_init()
         self.alpha = alpha
-        print(self.alpha)
-        # self.policy_head.weight.data.normal_(mean=0.0, std=0.02)  # TODO(jax) init policy head weights
-        # self.policy_head.weight.data.uniform_(-0.5, 0.5)
+
 
     @classmethod
     def from_pretrained(cls, pretrained_model_name_or_path, *model_args, alpha=None, **kwargs):
-        # 确保alpha参数被正确处理
         if alpha is None:
             raise ValueError("Alpha value must be provided for LlamaforPolicyModel")
-
-        # 在调用父类 from_pretrained 之前，添加 alpha 到 kwargs
         kwargs['alpha'] = alpha
-
-        # 调用父类的 from_pretrained 方法
         model = super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
 
         return model
@@ -113,24 +104,19 @@ class LlamaforPolicyModel(LlamaPreTrainedModel):
             else:
                 sequence_lengths = -1
 
-        #从logits中按照每个batch中的序列长度获取最后一个有效输出，如果序列经过了padding（填充），那么将获取到每个序列的最后一个非padding词汇的输出。
         pooled_logits = logits[torch.arange(batch_size, device=logits.device), sequence_lengths]
         
-        # reward_returns_shape = reward_returns.size()
-        # bias = torch.ones(reward_returns_shape)
-        # bias = bias.to(reward_returns.device)
         behaviour_policy_prob =0.5
 
         loss = None
         if labels is not None:
             check_tensor_values(labels, 'labels')
             logits_probs = F.softmax(pooled_logits, dim=-1) #batch_size*action_space_size
-            #print(logits_probs.shape)
+
             labels = labels.unsqueeze(1) #batch_size*1
-            #print(labels.shape); raise
             with torch.no_grad():
-                target_policy_prob = logits_probs.gather(1, labels)  # Select the probs of the taken actions
-                important_sampling_ratio = target_policy_prob / behaviour_policy_prob   # IS ratio
+                target_policy_prob = logits_probs.gather(1, labels)  
+                important_sampling_ratio = target_policy_prob / behaviour_policy_prob   
             
             distribution = Categorical(logits_probs)
             labels = labels.squeeze(1)
@@ -139,22 +125,8 @@ class LlamaforPolicyModel(LlamaPreTrainedModel):
             clip_threshold = 0.3
 
             weight = torch.clamp(important_sampling_ratio*counts, 1 - clip_threshold, 1 + clip_threshold)
-            loss = -distribution.log_prob(labels)*(reward_returns)*weight - alpha*entropy
-        
-
-            # PPO的目标是最小化这两个目标中较大的一个的负数
-
-            #print(counts)
-            #print(important_sampling_ratio)
-            #TODO gradient ascend 貌似不用mask,loss越来越小，
-            #surrogate1 = distribution.log_prob(labels)*(reward_returns)*important_sampling_ratio*counts - alpha*entropy
-            #surrogate2 = distribution.log_prob(labels)*(reward_returns)*torch.clamp(important_sampling_ratio*counts, 1 - clip_threshold, 1 + clip_threshold) - alpha*entropy
-            #print(loss)
-            #loss = -surrogate2.mean()  # 可能需要对损失求均值
-            #c
-
-            
-            loss = torch.sum(loss)  # TODO(jax)
+            loss = -distribution.log_prob(labels)*(reward_returns)*weight - alpha*entropy    
+            loss = torch.sum(loss) 
 
         if not return_dict:
             output = (logits,) + outputs[1:]
@@ -193,19 +165,8 @@ class LlamaforPolicyModel(LlamaPreTrainedModel):
                 )
             else:
                 sequence_lengths = -1
-
-
-        #从logits中按照每个batch中的序列长度获取最后一个有效输出，如果序列经过了padding（填充），那么将获取到每个序列的最后一个非padding词汇的输出。
-        pooled_logits = logits[torch.arange(batch_size, device=logits.device), sequence_lengths]
- 
-        
+        pooled_logits = logits[torch.arange(batch_size, device=logits.device), sequence_lengths]        
         logits_probs = F.softmax(pooled_logits, dim=-1)
-        #print(logits_probs)
-
-        #distribution = Categorical(logits_probs)
-        #print(distribution.probs)
-        #action = distribution.sample()
-
         action = logits_probs.argmax()
         return action
     

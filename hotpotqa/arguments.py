@@ -12,7 +12,7 @@ class ModelArguments:
     """
 
     model_name_or_path: str = field(
-        default="/root/autodl-tmp/pretrain_dir/llama_hf",
+        default=None,
         metadata={"help": "Path to pretrained model or model identifier from huggingface.co/models"}
     )
     config_name: Optional[str] = field(
@@ -25,7 +25,7 @@ class ModelArguments:
         default=None, metadata={"help": "Where do you want to store the pretrained models downloaded from s3"}
     )
     tokenizers: Optional[str] = field(
-        default="/root/autodl-tmp/pretrain_dir/llama_hf", metadata={"help": "Path to pretrain tokenizer"}
+        default=None, metadata={"help": "Path to pretrain tokenizer"}
     )
     use_fast_tokenizer: bool = field(default=True)
 

@@ -13,10 +13,10 @@ work_dir = os.environ["WORK_DIR"]
 class TestingCallback(TrainerCallback):
     def __init__(self, alpha, lr, *args, **kwargs):  
         dev_env = wikienv.WikiEnv()
-        dev_env = wrappers.HotPotQAWrapper(dev_env , split="dev")  # TODO(jax) 用dev数据
+        dev_env = wrappers.HotPotQAWrapper(dev_env , split="dev")  
         dev_env = wrappers.LoggingWrapper(dev_env)
         train_env = wikienv.WikiEnv()
-        train_env = wrappers.HotPotQAWrapper(train_env , split="train")  # TODO(jax) 用dev数据
+        train_env = wrappers.HotPotQAWrapper(train_env , split="train")  
         train_env = wrappers.LoggingWrapper(train_env)
         self.dev_env = dev_env
         self.train_env = train_env
@@ -97,7 +97,7 @@ def test_model(alpha, model, epoch, delta, dev_env, train_env, tokenizer, train_
     infos = []
     old_time = time.time()
     with jsonlines.open(work_dir + f"/reward_data/delta{delta}_alpha{alpha}_lr{lr}_dev100_log/epoch{epoch}.jsonl", "a") as jsonl_file:
-        for i in idxs[0:100]: #except 20
+        for i in idxs[0:100]: 
             info, trajectory = localthink(i, tokenizer=tokenizer, model=model, env=dev_env, localgpt=dev_localgpt, to_print=False)
             rs.append(info['em'])
             infos.append(info)
@@ -108,7 +108,7 @@ def test_model(alpha, model, epoch, delta, dev_env, train_env, tokenizer, train_
     random.Random(233).shuffle(idxs) 
     all_list = [5, 18, 37, 40, 13, 19, 27, 32, 42, 50, 51, 53, 54, 58, 62, 64, 65, 71, 72, 74, 75, 78, 80, 84, 85, 87, 91, 93, 94, 95, 97, 98, 100, 102, 106, 109, 112, 116, 118, 119, 121, 122, 124, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 184, 185, 186, 187, 188, 189, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249]
     with jsonlines.open(work_dir + f"/reward_data/delta{delta}_alpha{alpha}_lr{lr}_train160_log/epoch{epoch}.jsonl", "a") as jsonl_file:
-        for j in all_list: #except 20
+        for j in all_list: 
             i = idxs[j]
             info, trajectory = localthink(i, tokenizer=tokenizer, model=model, env= train_env, localgpt=train_localgpt, to_print=False)
             rs.append(info['em'])
