@@ -67,7 +67,7 @@ class ReinforceTrainingArguments(TrainingArguments):
     temperature: Optional[float] = field(default=0.02)
     #fix_position_embedding: bool = field(default=False, metadata={"help": "Freeze the parameters of position embeddings"})
     #sentence_pooling_method: str = field(default='cls', metadata={"help": "the pooling method, should be cls or mean"})
-    normlized: bool = field(default=True)
+    normalized: bool = field(default=True)
     gamma: float = field(default=1.0, metadata={"help": "return decay rate"})
     delta: float = field(default=0, metadata={"help": "human decay value  real_return = return - delta * human_times"})
     logging_steps: int = field(default=20)
