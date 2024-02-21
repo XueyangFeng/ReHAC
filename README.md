@@ -43,4 +43,12 @@ We provide original evaluation outputs of ReHAC
 under `hotpotqa/results`, `strategyqa/results`, and `intercode/results`.
 
 ## Citation
-If you are interested in our work, please cite the following paper as the reference. TODO
+If you are interested in our work, please cite the following paper as the reference.
+@misc{feng2024large,
+      title={Large Language Model-based Human-Agent Collaboration for Complex Task Solving}, 
+      author={Xueyang Feng and Zhi-Yuan Chen and Yujia Qin and Yankai Lin and Xu Chen and Zhiyuan Liu and Ji-Rong Wen},
+      year={2024},
+      eprint={2402.12914},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
