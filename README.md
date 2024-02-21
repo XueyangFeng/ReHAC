@@ -37,14 +37,8 @@ Evaluation result of HotpotQA dataset is under the following figure:
 <img src="./pic/main_result.png" width = "100%" alt="pic" align=center />
 </div>
 
-(a) Human-agent collaboration evaluation. (b) GPT-4-agent collaboration evaluation. The bars below the 0-axis represent the human intervention cost $$\lambda C$$, the entire columns, composed of the bars above and below the 0-axis, represent the task reward $$T$$, and the bars above the 0-axis represent the reward $$R$$ ($$R=T - \lambda C$$). Numbers within the bars means the human intervention rate %. $$\text{ReHAC}_{\text{GPT-4}}$$ and $$\text{ReHAC}_{\text{Human}}$$ represent the policy model trained on GPT-4-agent and human-agent collaboration datasets, respectively. ReHAC outperforms other baselines in human-agent collaboration scenarios.
-
-We provide original evaluation outputs of ReHAC under hotpotqa/results, strategyqa/results, and intercode/results.
-
-     
-  
-<br/>
-
+(a) Human-agent collaboration evaluation. (b) GPT-4-agent collaboration evaluation. The bars below the 0-axis represent the human intervention cost $\lambda C$, the entire columns, composed of the bars above and below the 0-axis, represent the task reward $T$, and the bars above the 0-axis represent the reward $R$ ($R=T - \lambda C$). Numbers within the bars means the human intervention rate %. $\text{ReHAC}_{\text{GPT-4}}$ and $\text{ReHAC}_{\text{Human}}$ represent the policy model trained on GPT-4-agent and human-agent collaboration datasets, respectively. ReHAC outperforms other baselines in human-agent collaboration scenarios.
+ 
 We provide original evaluation outputs of ReHAC
 under `hotpotqa/results`, `strategyqa/results`, and `intercode/results`.
 
