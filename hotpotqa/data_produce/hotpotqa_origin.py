@@ -15,7 +15,7 @@ env = wikienv.WikiEnv()
 env = wrappers.HotPotQAWrapper(env, split="train")  # dev 表示验证集 react论文选取500条验证集测试 train表示训练集
 env = wrappers.LoggingWrapper(env)
 
-openai.api_key = "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"
+openai.api_key = "xx"
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
 def llm(prompt, model, stop=["\n"]):

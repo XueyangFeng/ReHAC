@@ -18,7 +18,7 @@ random.seed(0)  # seed for human help introduce
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
 def gpt4(prompt, stop=["\n"]):
-    openai.api_key = "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"
+    openai.api_key = "xxx"
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
       model="gpt-4-0613",
@@ -34,7 +34,7 @@ def gpt4(prompt, stop=["\n"]):
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
 def chatgpt(prompt, stop=["\n"]):
-    openai.api_key = "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"
+    openai.api_key = "xx"
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo-0613",

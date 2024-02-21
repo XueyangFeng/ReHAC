@@ -1,0 +1,12 @@
+accelerate==0.23.0
+beautifulsoup4==4.12.2
+datasets==2.14.6
+gym==0.26.2
+jsonlines==4.0.0
+numpy==1.23.4
+openai==0.27.2
+peft==0.6.0
+Requests==2.31.0
+tenacity==8.2.3
+torch==1.13.1+cu117
+transformers==4.35.0
