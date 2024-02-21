@@ -10,17 +10,17 @@ export WORK_DIR="your/code/directory"
 MODEL_CACHE_DIR="your/llama_model/directory"
 TRAIN_DATA_DIR="your/processed_training_data/directory"
 
-OUTPUT_DIR="./fine-tuned_dir_ppo_is/train_exhaust_reward${Data}/delta${DELTA}_epoch${EPOCH}_alpha${ALPHA}_batchsize${BS}_lr${LR}/"
-LOG_DIR="./log/train_exhaust_${Data}/delta${DELTA}_epoch${EPOCH}_alpha${ALPHA}/"
-TRAIN_REWARD_DIR="./reward_data/ppo${DELTA}_train${Data}_log_alpha${ALPHA}_lr${LR}_argmax/"
-DEV_REWARD_DIR="./reward_data/ppo${DELTA}_dev100_log_alpha${ALPHA}_lr${LR}_argmax/"
+OUTPUT_DIR=${WORK_DIR}"/fine-tuned_dir_ppo_is/train_exhaust_reward${Data}/delta${DELTA}_epoch${EPOCH}_alpha${ALPHA}_batchsize${BS}_lr${LR}/"
+LOG_DIR=${WORK_DIR}"/log/train_exhaust_${Data}/delta${DELTA}_epoch${EPOCH}_alpha${ALPHA}/"
+TRAIN_REWARD_DIR=${WORK_DIR}"/reward_data/ppo${DELTA}_train${Data}_log_alpha${ALPHA}_lr${LR}_argmax/"
+DEV_REWARD_DIR=${WORK_DIR}"/reward_data/ppo${DELTA}_dev100_log_alpha${ALPHA}_lr${LR}_argmax/"
 
 mkdir -p $OUTPUT_DIR
 mkdir -p $LOG_DIR
 mkdir -p $TRAIN_REWARD_DIR
 mkdir -p $DEV_REWARD_DIR
 
-python run_cls.py \
+python ${WORK_DIR}/run_cls.py \
     --output_dir $OUTPUT_DIR \
     --overwrite_output_dir \
     --remove_unused_columns False \

@@ -1,6 +1,8 @@
 import json
 import ast
 import re
+import os
+work_dir = os.environ["WORK_DIR"]
 
 def encoding(traj):
     solver_tags = re.findall(r'<solver> (human|agent)', traj)
@@ -11,9 +13,9 @@ def encoding(traj):
 class localgpt:
     def __init__(self, data) -> None:
         if data == 'train':
-            filename = './test_data/localgpt_train100.jsonl'
+            filename = work_dir + '/test_data/localgpt_train100.jsonl'
         elif data == 'dev':
-            filename = './test_data/localgpt_dev100.jsonl'
+            filename = work_dir + '/test_data/localgpt_dev100.jsonl'
 
         with open(filename, 'r') as file:
             loaded_data = json.load(file)

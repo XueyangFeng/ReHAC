@@ -5,8 +5,12 @@ from test_advantage import PolicyTester, AgentTester
 import time
 import torch
 import jsonlines
-train_question_dir = "./data/sql/train_question.jsonl"
-test_question_dir = "./data/sql/dev_question.jsonl"
+import os
+work_dir = os.environ["WORK_DIR"]
+
+
+train_question_dir = work_dir + "/data/sql/train_question.jsonl"
+test_question_dir = work_dir + "/data/sql/dev_question.jsonl"
 
 #learning curve
 class TestingCallback(TrainerCallback):
@@ -90,7 +94,7 @@ def test_model(alpha, model, epoch, delta, tokenizer, train_localgpt, dev_localg
     rs = []
     infos = []
     old_time = time.time()
-    with jsonlines.open(f"./reward_data/ppo{delta}_dev100_log_alpha{alpha}_lr{lr}_argmax/epoch{epoch}.jsonl", "a") as jsonl_file:
+    with jsonlines.open(work_dir + f"/reward_data/ppo{delta}_dev100_log_alpha{alpha}_lr{lr}_argmax/epoch{epoch}.jsonl", "a") as jsonl_file:
         with jsonlines.open(test_question_dir,"r") as f:
             for entry in f:
                 idx = entry['idx']
@@ -99,7 +103,7 @@ def test_model(alpha, model, epoch, delta, tokenizer, train_localgpt, dev_localg
                 infos.append(info)
                 jsonl_file.write({"trajectory": trajectory, "em": info['em'], "f1": info['f1']})
         
-    with jsonlines.open(f"./reward_data/ppo{delta}_train100_log_alpha{alpha}_lr{lr}_argmax/epoch{epoch}.jsonl", "a") as jsonl_file:
+    with jsonlines.open(work_dir + f"/reward_data/ppo{delta}_train100_log_alpha{alpha}_lr{lr}_argmax/epoch{epoch}.jsonl", "a") as jsonl_file:
         with jsonlines.open(train_question_dir,"r") as f:
             for entry in f:
                 idx = entry['idx']
