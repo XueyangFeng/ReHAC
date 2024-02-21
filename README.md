@@ -53,15 +53,12 @@ under `hotpotqa/results`, `strategyqa/results`, and `intercode/results`.
 
 ## Citation
 If you are interested in our work, please cite the following paper as the reference., please cite:
-
-```
-@misc{chen2023fireact,
-      title={FireAct: Toward Language Agent Fine-tuning}, 
-      author={Baian Chen and Chang Shu and Ehsan Shareghi and Nigel Collier and Karthik Narasimhan and Shunyu Yao},
-      year={2023},
-      eprint={2310.05915},
+@misc{feng2024large,
+      title={Large Language Model-based Human-Agent Collaboration for Complex Task Solving}, 
+      author={Xueyang Feng and Zhi-Yuan Chen and Yujia Qin and Yankai Lin and Xu Chen and Zhiyuan Liu and Ji-Rong Wen},
+      year={2024},
+      eprint={2402.12914},
       archivePrefix={arXiv},
       primaryClass={cs.CL}
 }
-```
 
