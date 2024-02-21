@@ -1,5 +1,5 @@
 # Large Language Model-based Human-Agent Collaboration for Complex Task Solving
-This repository is based on our paper: "[Large Language Model-based Human-Agent Collaboration for Complex Task Solving](https://arxiv.org/abs/2402.12914)". It contains the human-computer collaboration dataset we generated, as well as demo code for our fine-tuned human-agent collaboration policy model.   
+This repository is based on our paper: *[Large Language Model-based Human-Agent Collaboration for Complex Task Solving](https://arxiv.org/abs/2402.12914)*. It contains the human-computer collaboration dataset we generated, as well as demo code for our fine-tuned human-agent collaboration policy model.   
 <div  align="center">    
 <img src="./pic/pic4.png" width = "600" height = "400" alt="pic" align=center />
 </div>
@@ -53,6 +53,7 @@ under `hotpotqa/results`, `strategyqa/results`, and `intercode/results`.
 
 ## Citation
 If you are interested in our work, please cite the following paper as the reference., please cite:
+```
 @misc{feng2024large,
       title={Large Language Model-based Human-Agent Collaboration for Complex Task Solving}, 
       author={Xueyang Feng and Zhi-Yuan Chen and Yujia Qin and Yankai Lin and Xu Chen and Zhiyuan Liu and Ji-Rong Wen},
@@ -61,4 +62,5 @@ If you are interested in our work, please cite the following paper as the refere
       archivePrefix={arXiv},
       primaryClass={cs.CL}
 }
+```
 
