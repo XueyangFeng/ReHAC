@@ -20,9 +20,11 @@ pip install -r requirements.txt
 ```
 
 ### Constructing Training Data
+Here, we give an example where we set $\lambda=0.08$.
 ```
 python data_preprocess.py ./dataset/gpt4/hotpotqa.jsonl 0.08 ./hotpotqa/data/advantage_sample_count_0.08.jsonl
 ```
+The processed training data is in `./hotpotqa/data/advantage_sample_count_0.08.jsonl` and you should set `TRAIN_DATA_DIR` in run.sh to this path.
 
 ### Training and Test Process
 ```
@@ -32,7 +34,7 @@ sh run.sh
 
 ## Results
 We random sample 100 questions for test for each dataset.
-Evaluation result of HotpotQA dataset is under the following figure:
+The evaluation result of HotpotQA dataset is under the following figure:
 <div  align="center">    
 <img src="./pic/main_result.png" width = "100%" alt="pic" align=center />
 </div>
@@ -43,4 +45,14 @@ We provide original evaluation outputs of ReHAC
 under `hotpotqa/results`, `strategyqa/results`, and `intercode/results`.
 
 ## Citation
-If you are interested in our work, please cite the following paper as the reference. TODO
+If you are interested in our work, please cite the following paper as the reference.
+```
+@misc{feng2024large,
+      title={Large Language Model-based Human-Agent Collaboration for Complex Task Solving}, 
+      author={Xueyang Feng and Zhi-Yuan Chen and Yujia Qin and Yankai Lin and Xu Chen and Zhiyuan Liu and Ji-Rong Wen},
+      year={2024},
+      eprint={2402.12914},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
