@@ -20,8 +20,9 @@ pip install -r requirements.txt
 ```
 
 ### Constructing Training Data
-#### TODO
-这里写一下如何从原始数据得到训练数据，运行哪个脚本就行。
+```
+python process_data.py ./dataset/gpt4/hotpotqa.jsonl 0.08 ./hotpotqa/data/advantage_sample_count_0.08.jsonl
+```
 
 ### Training and Test Process
 ```
