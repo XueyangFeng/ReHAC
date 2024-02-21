@@ -14,8 +14,6 @@ with open(f"./sample_100.jsonl", "r") as f:
 
         solver_regex = re.compile(r'\<solver\>[\s\S]*?(\w+)')
 
-
-        # 初始化每个episode的sar字典列表
         sar_list_episode = []
 
         segments = trajectory.split("<solver>")
