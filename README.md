@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ### Constructing Training Data
 ```
-python process_data.py ./dataset/gpt4/hotpotqa.jsonl 0.08 ./hotpotqa/data/advantage_sample_count_0.08.jsonl
+python data_preprocess.py ./dataset/gpt4/hotpotqa.jsonl 0.08 ./hotpotqa/data/advantage_sample_count_0.08.jsonl
 ```
 
 ### Training and Test Process
