@@ -53,6 +53,7 @@ under `hotpotqa/results`, `strategyqa/results`, and `intercode/results`.
 
 ## Citation
 If you are interested in our work, please cite the following paper as the reference.
+
 ```
 @misc{feng2024large,
       title={Large Language Model-based Human-Agent Collaboration for Complex Task Solving}, 
