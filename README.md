@@ -1,5 +1,5 @@
 # Large Language Model-based Human-Agent Collaboration for Complex Task Solving
-This repository is based on our paper: "Large Language Model-based Human-Agent Collaboration for Complex Task Solving". It contains the human-computer collaboration dataset we generated, as well as demo code for our fine-tuned human-agent collaboration policy model.   
+This repository is based on our paper: *[Large Language Model-based Human-Agent Collaboration for Complex Task Solving](https://arxiv.org/abs/2402.12914)*. It contains the human-computer collaboration dataset we generated, as well as demo code for our fine-tuned human-agent collaboration policy model.   
 <div  align="center">    
 <img src="./pic/pic4.png" width = "600" height = "400" alt="pic" align=center />
 </div>
@@ -39,13 +39,22 @@ The evaluation result of HotpotQA dataset is under the following figure:
 <img src="./pic/main_result.png" width = "100%" alt="pic" align=center />
 </div>
 
+
 (a) Human-agent collaboration evaluation. (b) GPT-4-agent collaboration evaluation. The bars below the 0-axis represent the human intervention cost $\lambda C$, the entire columns, composed of the bars above and below the 0-axis, represent the task reward $T$, and the bars above the 0-axis represent the reward $R$ ($R=T - \lambda C$). Numbers within the bars means the human intervention rate. $ReHAC\_{GPT-4}$ and $ReHAC\_{Human}$ represent the policy model trained on GPT-4-agent and human-agent collaboration datasets, respectively. ReHAC outperforms other baselines in human-agent collaboration scenarios.
  
+
+<div  align="center">    
+<img src="./pic/curve.png" width = "100%" alt="pic" align=center />
+</div>
+
 We provide original evaluation outputs of ReHAC
 under `hotpotqa/results`, `strategyqa/results`, and `intercode/results`.
 
+
+
+
 ## Citation
-If you are interested in our work, please cite the following paper as the reference.
+If you are interested in our work, please cite the following paper as the reference., please cite:
 ```
 @misc{feng2024large,
       title={Large Language Model-based Human-Agent Collaboration for Complex Task Solving}, 
@@ -56,3 +65,4 @@ If you are interested in our work, please cite the following paper as the refere
       primaryClass={cs.CL}
 }
 ```
+
