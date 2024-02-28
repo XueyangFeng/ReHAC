@@ -24,7 +24,9 @@ Here, we give an example where we set $\lambda=0.08$.
 ```
 python data_preprocess.py ./dataset/gpt4/hotpotqa.jsonl 0.08 ./hotpotqa/data/advantage_sample_count_0.08.jsonl
 ```
-The processed training data is in `./hotpotqa/data/advantage_sample_count_0.08.jsonl` and you should set `TRAIN_DATA_DIR` in run.sh to this path.
+The processed training data is then saved in `./hotpotqa/data/advantage_sample_count_0.08.jsonl` and you should set `TRAIN_DATA_DIR` in run.sh to this path.
+
+You can also find the training data we have processed under `hotpotqa/data/advantage` and `strategyqa/data` and `intercode/data/sql` folders.
 
 ### Training and Test Process
 ```
