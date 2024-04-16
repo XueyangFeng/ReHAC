@@ -1,5 +1,5 @@
 # Large Language Model-based Human-Agent Collaboration for Complex Task Solving
-This repository is based on our paper: *[Large Language Model-based Human-Agent Collaboration for Complex Task Solving](https://arxiv.org/abs/2402.12914)*. It contains the human-computer collaboration dataset we generated, as well as demo code for our fine-tuned human-agent collaboration policy model.   
+This repository is based on our paper: Large Language Model-based Human-Agent Collaboration for Complex Task Solving. It contains the human-computer collaboration dataset we generated, as well as demo code for our fine-tuned human-agent collaboration policy model.   
 <div  align="center">    
 <img src="./pic/pic4.png" width = "600" height = "400" alt="pic" align=center />
 </div>
