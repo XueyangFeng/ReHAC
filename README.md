@@ -52,5 +52,13 @@ The evaluation result of HotpotQA dataset is under the following figure:
 We provide original evaluation outputs of ReHAC
 under `hotpotqa/results`, `strategyqa/results`, and `intercode/results`.
 
-
-
+## Citation
+If you find that ReHAC is helpful for your work, please cite the follow paper.
+```
+@article{feng2024large,
+  title={Large Language Model-based Human-Agent Collaboration for Complex Task Solving},
+  author={Feng, Xueyang and Chen, Zhi-Yuan and Qin, Yujia and Lin, Yankai and Chen, Xu and Liu, Zhiyuan and Wen, Ji-Rong},
+  journal={arXiv preprint arXiv:2402.12914},
+  year={2024}
+}
+```
